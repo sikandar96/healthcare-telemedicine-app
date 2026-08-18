@@ -1,4 +1,3 @@
-// Clinical Atelier reminder: this page uses an asymmetric editorial frame, semantic status color, and clear care next-actions instead of a generic centered dashboard.
 import { useMemo, useState } from "react";
 import {
   Activity,
@@ -29,7 +28,7 @@ const heroImage = "/assets/clinical-atelier-hero.png";
 const consultationImage = "/assets/clinical-atelier-consultation.png";
 const pharmacyImage = "/assets/clinical-atelier-pharmacy.png";
 const preventiveImage = "/assets/clinical-atelier-preventive.png";
-const logoImage = "/assets/caremark-symbol.png";
+const logoImage = "/healthcare-telemedicine-logo-transparent.png";
 
 const modeLabels = {
   patient: "Patient view",
@@ -77,9 +76,9 @@ export default function Home({ mode, availableModes, onModeChange, authOpen, onA
   return (
     <div className="app-shell">
       <header className="site-header">
-        <button className="brand" onClick={() => scrollTo("overview")} aria-label="Caremark home">
+        <button className="brand" onClick={() => scrollTo("overview")} aria-label="healthcare-telemedicine home">
           <span className="brand-mark-frame"><img src={logoImage} alt="" className="brand-mark" /></span>
-          <span className="brand-wordmark">caremark<span>.</span></span>
+          <span className="brand-wordmark">healthcare<span>-telemedicine</span></span>
         </button>
         <button className="mobile-menu-button" onClick={() => setMobileNavOpen(!mobileNavOpen)} aria-label="Toggle navigation">
           {mobileNavOpen ? <X size={21} /> : <Menu size={21} />}
@@ -141,7 +140,7 @@ export default function Home({ mode, availableModes, onModeChange, authOpen, onA
         <section className="bottom-section"><div><div className="eyebrow"><span className="eyebrow-line" /> Your care ledger</div><h2>Clarity feels <em>like care.</em></h2><p>Every consultation, order, reminder, and payment stays in one calm place.</p></div><div className="ledger-card"><div className="ledger-top"><span>APRIL CARE SPEND</span><CreditCard size={18} /></div><strong>$42.00</strong><div className="ledger-bar"><span /></div><div className="ledger-foot"><span>Consultation</span><b>Covered by you</b></div></div><div className="ledger-card pale"><div className="ledger-top"><span>ORDERS IN MOTION</span><ShoppingBag size={18} /></div><strong>02</strong><div className="order-status"><span className="status-dot green-dot" /> One arrives tomorrow</div><div className="order-status"><span className="status-dot blue-dot" /> One being prepared</div></div></section>
       </main>
 
-      <footer className="site-footer"><div className="footer-brand"><span className="brand-mark-frame"><img src={logoImage} alt="" className="brand-mark" /></span><span className="brand-wordmark">caremark<span>.</span></span></div><span>Care navigation, thoughtfully connected.</span><div className="footer-links"><button onClick={() => announce("Privacy information")}>Privacy</button><button onClick={() => announce("Support is opening")}>Support</button><button onClick={() => onAuthOpenChange(!authOpen)}>{authOpen ? "Close account" : "Sign in"}</button></div></footer>
+      <footer className="site-footer"><div className="footer-brand"><span className="brand-mark-frame"><img src={logoImage} alt="" className="brand-mark" /></span><span className="brand-wordmark">healthcare<span>-telemedicine</span></span></div><span>Connected care, wherever you are.</span><div className="footer-links"><button onClick={() => announce("Privacy information")}>Privacy</button><button onClick={() => announce("Support is opening")}>Support</button><button onClick={() => onAuthOpenChange(!authOpen)}>{authOpen ? "Close account" : "Sign in"}</button></div></footer>
     </div>
   );
 }
