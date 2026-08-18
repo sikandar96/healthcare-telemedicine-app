@@ -71,14 +71,28 @@ export async function login(username, password) {
   return auth;
 }
 
-export async function register(username, password, role = "PATIENT") {
+export async function register(username, password, role = "PATIENT", email = "", phone = "") {
   const data = await request("/auth/register", {
     method: "POST",
-    body: JSON.stringify({ username, password, role }),
+    body: JSON.stringify({ username, password, role, email, phone }),
   });
   const auth = { ...data, username };
   saveSession(auth);
   return auth;
+}
+
+export async function requestPasswordReset(identifier) {
+  return request("/auth/forgot-password", {
+    method: "POST",
+    body: JSON.stringify({ identifier }),
+  });
+}
+
+export async function resetPassword(token, password) {
+  return request("/auth/reset-password", {
+    method: "POST",
+    body: JSON.stringify({ token, password }),
+  });
 }
 
 export const api = {

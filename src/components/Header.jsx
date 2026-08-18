@@ -29,6 +29,8 @@ export default function Header({
   logoImage,
 }) {
   const sections = ["overview", "consultations", "pharmacy", "preventive"];
+  const displayName = user?.username || "Guest";
+  const initials = displayName.split(/[ ._-]+/).filter(Boolean).map((part) => part[0]).join("").slice(0, 2).toUpperCase() || "HT";
 
   return (
     <>
@@ -52,8 +54,8 @@ export default function Header({
           <button className="notification-button" aria-label="Notifications" onClick={onNotify}><Bell size={18} /><span /></button>
           <div className="mode-switcher">
             <button className="mode-button" onClick={onModeChange.toggle}>
-              <span className="avatar">{mode === "patient" ? "AM" : mode.slice(0, 2).toUpperCase()}</span>
-              <span className="mode-name">{user?.username || modeLabels[mode]}</span><ChevronDown size={15} />
+              <span className="avatar">{initials}</span>
+              <span className="mode-identity"><strong>{displayName}</strong><small>{user ? `${modeLabels[mode]} · Secure` : "Preview mode"}</small></span><ChevronDown size={15} />
             </button>
             {onModeChange.open && <div className="mode-menu">{availableModes.map((item) => <button key={item} onClick={() => onModeChange.select(item)}>{modeLabels[item]}</button>)}</div>}
           </div>

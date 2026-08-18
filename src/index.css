@@ -58,3 +58,10 @@ main { max-width:1440px; margin:0 auto; }.hero-section { display:grid; grid-temp
 .revenue-footnote { padding-top:22px; color:#a9e4d6; font-size:10px; line-height:1.6; max-width:430px; }
 @media (max-width:900px) { .product-feature-grid { grid-template-columns:1fr; } .product-feature-card { min-height:220px; } .revenue-section { grid-template-columns:1fr; gap:40px; } }
 @media (max-width:560px) { .secure-care-note { align-items:flex-start; flex-wrap:wrap; } .care-modes { width:100%; margin-left:27px; } .revenue-stream { grid-template-columns:25px 40px 1fr; gap:11px; } .revenue-stream > svg { display:none; } }
+
+/* Modern signed-in identity treatment */
+.mode-identity { display:flex; flex-direction:column; align-items:flex-start; gap:2px; min-width:82px; }
+.mode-identity strong { color:var(--navy); font-size:10px; line-height:1.1; max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.mode-identity small { color:var(--muted); font-size:8px; font-weight:600; line-height:1.1; white-space:nowrap; }
+.mode-button > svg { color:#8ba0a5; }
+@media (max-width:560px) { .mode-identity { display:none; } .mode-button { padding-right:5px; } }
