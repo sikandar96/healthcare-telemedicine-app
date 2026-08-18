@@ -9,6 +9,8 @@ import CareShelfSection from "./components/CareShelfSection";
 import ProgramsSection from "./components/ProgramsSection";
 import CareLedgerSection from "./components/CareLedgerSection";
 import AppFooter from "./components/AppFooter";
+import ProductFeaturesSection from "./components/ProductFeaturesSection";
+import RevenueModelSection from "./components/RevenueModelSection";
 
 const heroImage = "/assets/clinical-atelier-hero.png";
 const consultationImage = "/assets/clinical-atelier-consultation.png";
@@ -129,9 +131,11 @@ export default function Home({ mode, availableModes, onModeChange, authOpen, onA
       <main>
         <HeroSection greeting={mode === "patient" ? `Good morning, ${user?.username || "there"}` : `${mode[0].toUpperCase()}${mode.slice(1)} view`} sectionTitle={sectionTitle} onNavigate={scrollTo} heroImage={heroImage} />
         <SignalStrip />
+        <ProductFeaturesSection onNavigate={scrollTo} onRequireAuth={onOpenAuth} user={user} />
         <ConsultationsSection doctors={liveDoctors} selectedDoctor={selectedDoctor} onSelectDoctor={bookDoctor} onOpenDirectory={() => scrollTo("consultations")} consultationImage={consultationImage} loading={dataLoading} />
         <CareShelfSection pharmacyImage={pharmacyImage} preventiveImage={preventiveImage} reminders={reminders} reminderDone={reminderDone} onCompleteReminder={completeReminder} onToggleDemoReminder={() => { setReminderDone((value) => !value); announce(reminderDone ? "Reminder reopened" : "Reminder marked complete"); }} onOpenPharmacy={() => scrollTo("pharmacy")} />
         <ProgramsSection programs={livePrograms} onOpenProgram={(title) => announce(`${title} opened`)} />
+        <RevenueModelSection onExplore={() => announce("Revenue model details opened")} />
         <CareLedgerSection />
       </main>
       <AppFooter logoImage={logoImage} user={user} onLogout={onLogout} onOpenAuth={onOpenAuth} onAnnounce={announce} />
