@@ -11,6 +11,7 @@ import CareLedgerSection from "./components/CareLedgerSection";
 import AppFooter from "./components/AppFooter";
 import ProductFeaturesSection from "./components/ProductFeaturesSection";
 import RevenueModelSection from "./components/RevenueModelSection";
+import { formatInr } from "./utils/currency";
 
 const heroImage = "/assets/clinical-atelier-hero.png";
 const consultationImage = "/assets/clinical-atelier-consultation.png";
@@ -19,9 +20,9 @@ const preventiveImage = "/assets/clinical-atelier-preventive.png";
 const logoImage = "/healthcare-telemedicine-logo-transparent.png";
 
 const fallbackDoctors = [
-  { name: "Dr. Maya Chen", specialty: "Family medicine", wait: "12 min", fee: "$42", initials: "MC", color: "#dbeafe" },
-  { name: "Dr. Rafael Ortiz", specialty: "Dermatology", wait: "24 min", fee: "$58", initials: "RO", color: "#d9f99d" },
-  { name: "Dr. Leena Shah", specialty: "Women’s health", wait: "8 min", fee: "$46", initials: "LS", color: "#fed7aa" },
+  { name: "Dr. Maya Chen", specialty: "Family medicine", wait: "12 min", fee: 3500, initials: "MC", color: "#dbeafe" },
+  { name: "Dr. Rafael Ortiz", specialty: "Dermatology", wait: "24 min", fee: 4800, initials: "RO", color: "#d9f99d" },
+  { name: "Dr. Leena Shah", specialty: "Women’s health", wait: "8 min", fee: 3800, initials: "LS", color: "#fed7aa" },
 ];
 
 const fallbackPrograms = [
