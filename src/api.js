@@ -62,6 +62,9 @@ export async function login(username, password) {
     method: "POST",
     body: JSON.stringify({ username, password }),
   });
+  // Persist the JWT before calling the protected current-user endpoint.
+  // Previously /auth/me ran while no Authorization header was available.
+  saveSession({ ...data, username });
   const me = await request("/auth/me", { method: "GET" });
   const auth = { ...data, username: me };
   saveSession(auth);
