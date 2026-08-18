@@ -1,186 +1,60 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { login, register } from "../../api";
 import "./AuthGate.css";
 
-const initialUsers = [
-  {
-    id: 1,
-    name: "Dr. Maya Chen",
-    email: "doctor@carelink.com",
-    password: "care123",
-  },
-  {
-    id: 2,
-    name: "Patient User",
-    email: "patient@carelink.com",
-    password: "care123",
-  },
-];
-
-function AuthGate({
-  isOpen = false,
-  initialMode = "login",
-  onClose,
-  onAuthSuccess,
-}) {
+function AuthGate({ isOpen = false, initialMode = "login", onClose, onAuthSuccess }) {
   const [mode, setMode] = useState(initialMode);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    password: "",
-  });
-  const [user, setUser] = useState(null);
+  const [formData, setFormData] = useState({ username: "", password: "", role: "PATIENT" });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setMode(initialMode);
-  }, [initialMode]);
-
-  const users = useMemo(() => {
-    if (typeof window === "undefined" || !window.localStorage) {
-      return initialUsers;
-    }
-
-    const stored = window.localStorage.getItem("carelink-users");
-    if (stored) {
-      try {
-        return JSON.parse(stored);
-      } catch {
-        return initialUsers;
-      }
-    }
-    return initialUsers;
-  }, []);
+    setError("");
+  }, [initialMode, isOpen]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((current) => ({ ...current, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
-
-    const existingUsers = users;
-    const match = existingUsers.find(
-      (item) =>
-        item.email === formData.email && item.password === formData.password,
-    );
-
-    if (mode === "login") {
-      if (match) {
-        setUser(match);
-        onAuthSuccess?.(match);
-        onClose?.();
-        return;
-      }
-      setError("Invalid email or password.");
-      return;
+    setLoading(true);
+    try {
+      const auth = mode === "login"
+        ? await login(formData.username, formData.password)
+        : await register(formData.username, formData.password, formData.role);
+      onAuthSuccess?.(auth);
+      onClose?.();
+    } catch (requestError) {
+      setError(requestError.message || "Unable to connect to the healthcare API.");
+    } finally {
+      setLoading(false);
     }
-
-    if (
-      !formData.name ||
-      !formData.email ||
-      !formData.mobile ||
-      !formData.password
-    ) {
-      setError("Please fill in all fields to register.");
-      return;
-    }
-
-    const nextUser = {
-      id: Date.now(),
-      name: formData.name,
-      email: formData.email,
-      mobile: formData.mobile,
-      password: formData.password,
-    };
-    const nextUsers = [...existingUsers, nextUser];
-    if (typeof window !== "undefined" && window.localStorage) {
-      window.localStorage.setItem("carelink-users", JSON.stringify(nextUsers));
-    }
-    setUser(nextUser);
-    onAuthSuccess?.(nextUser);
-    onClose?.();
   };
 
-  if (!isOpen) {
-    return null;
-  }
+  if (!isOpen) return null;
 
   return (
     <div className="auth-gate-shell" onClick={onClose}>
-      <div
-        className="auth-gate-card"
-        onClick={(event) => event.stopPropagation()}
-      >
+      <div className="auth-gate-card" onClick={(event) => event.stopPropagation()}>
         <div className="auth-gate-header">
           <p className="eyebrow">Protected access</p>
-          <h1>Secure access to Healthcare & Telemedicine</h1>
-          <p>Register or login to continue to the dashboard.</p>
+          <h1>Secure access to healthcare-telemedicine</h1>
+          <p>Use your backend account to continue to the care dashboard.</p>
         </div>
-
         <div className="auth-toggle">
-          <button
-            type="button"
-            className={mode === "login" ? "active" : ""}
-            onClick={() => setMode("login")}
-          >
-            Login
-          </button>
-          <button
-            type="button"
-            className={mode === "register" ? "active" : ""}
-            onClick={() => setMode("register")}
-          >
-            Register
-          </button>
+          <button type="button" className={mode === "login" ? "active" : ""} onClick={() => setMode("login")}>Login</button>
+          <button type="button" className={mode === "register" ? "active" : ""} onClick={() => setMode("register")}>Register</button>
         </div>
-
         <form className="auth-form" onSubmit={handleSubmit}>
-          {mode === "register" ? (
-            <>
-              <label>
-                Full name
-                <input
-                  name="name"
-                  type="text"
-                  onChange={handleChange}
-                  required
-                />
-              </label>
-              <label>
-                Mobile number
-                <input
-                  name="mobile"
-                  type="tel"
-                  onChange={handleChange}
-                  required
-                />
-              </label>
-            </>
-          ) : null}
-
-          <label>
-            Email
-            <input name="email" type="email" onChange={handleChange} required />
-          </label>
-
-          <label>
-            Password
-            <input
-              name="password"
-              type="password"
-              onChange={handleChange}
-              required
-            />
-          </label>
-
+          <label>Username<input name="username" type="text" value={formData.username} onChange={handleChange} autoComplete="username" required /></label>
+          <label>Password<input name="password" type="password" value={formData.password} onChange={handleChange} autoComplete={mode === "login" ? "current-password" : "new-password"} required /></label>
+          {mode === "register" ? <label>Account type<select name="role" value={formData.role} onChange={handleChange}><option value="PATIENT">Patient</option><option value="DOCTOR">Doctor</option></select></label> : null}
           {error ? <p className="auth-error">{error}</p> : null}
-
-          <button type="submit" className="primary-btn">
-            {mode === "login" ? "Login" : "Create account"}
-          </button>
+          <button type="submit" className="primary-btn" disabled={loading}>{loading ? "Connecting…" : mode === "login" ? "Login" : "Create account"}</button>
         </form>
       </div>
     </div>
