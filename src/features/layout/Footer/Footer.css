@@ -1,0 +1,13 @@
+.footer {
+  padding: 18px 32px 24px;
+  color: #245a7a;
+  border-top: 1px solid #dce8ff;
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(90deg, rgba(15, 76, 129, 0.04) 0%, rgba(43, 191, 189, 0.08) 100%);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}

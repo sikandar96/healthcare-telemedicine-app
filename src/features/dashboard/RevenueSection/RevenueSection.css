@@ -1,0 +1,31 @@
+.info-strip {
+  background: linear-gradient(135deg, #ffffff 0%, #f3fbff 100%);
+  border: 1px solid #dce8ff;
+  border-radius: 22px;
+  box-shadow: 0 12px 26px rgba(15, 61, 107, 0.07);
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.info-strip h3 {
+  margin: 0 0 6px;
+  color: #0b3557;
+}
+
+.info-strip p {
+  margin: 0;
+  color: #56718a;
+  line-height: 1.7;
+}
+
+.pill-box {
+  background: linear-gradient(135deg, #e7f9f3 0%, #d6f2e4 100%);
+  color: #166551;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}

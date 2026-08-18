@@ -1,0 +1,33 @@
+.hero-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f3fbff 100%);
+  border: 1px solid #d2e8f4;
+  border-radius: 24px;
+  box-shadow: 0 14px 34px rgba(11, 53, 87, 0.08);
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+
+.hero-card h2 {
+  margin: 0 0 8px;
+  font-size: 1.4rem;
+  color: #0b3557;
+}
+
+.hero-card p {
+  margin: 0;
+  color: #4d6780;
+  line-height: 1.7;
+}
+
+.revenue-pill {
+  background: linear-gradient(135deg, #e7f7f6 0%, #d7f2ff 100%);
+  color: #167587;
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-align: center;
+  min-width: 250px;
+}

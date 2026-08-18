@@ -1,0 +1,25 @@
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.service-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fdff 100%);
+  border: 1px solid #dce8ff;
+  border-radius: 22px;
+  box-shadow: 0 12px 26px rgba(15, 61, 107, 0.07);
+  padding: 20px;
+}
+
+.service-card h3 {
+  margin-top: 0;
+  margin-bottom: 6px;
+  color: #0b3557;
+}
+
+.service-card p {
+  margin: 0;
+  color: #56718a;
+  line-height: 1.7;
+}
