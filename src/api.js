@@ -88,6 +88,20 @@ export async function requestPasswordReset(identifier) {
   });
 }
 
+export async function requestPasswordOtp(identifier, channel = "email") {
+  return request("/auth/request-otp", {
+    method: "POST",
+    body: JSON.stringify({ identifier, channel }),
+  });
+}
+
+export async function verifyPasswordOtp(identifier, otp) {
+  return request("/auth/verify-otp", {
+    method: "POST",
+    body: JSON.stringify({ identifier, otp }),
+  });
+}
+
 export async function resetPassword(token, password) {
   return request("/auth/reset-password", {
     method: "POST",
